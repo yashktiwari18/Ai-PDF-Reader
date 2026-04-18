@@ -1,0 +1,21 @@
+# ── Web framework ──────────────────────────────────────────────────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.12        # Required for UploadFile support
+
+# ── PDF parsing ────────────────────────────────────────────────────────────────
+PyMuPDF>=1.24.0                 # fitz — fast, reliable text extraction from PDFs
+
+# ── Embeddings ─────────────────────────────────────────────────────────────────
+sentence-transformers>=3.0.0    # all-MiniLM-L6-v2 and other SBERT models
+faiss-cpu>=1.9.0                # CPU FAISS for vector similarity search
+numpy>=1.26.0                   # Required by faiss and sentence-transformers
+
+# ── LLM & RAG orchestration ────────────────────────────────────────────────────
+langchain>=0.3.0
+langchain-google-genai>=2.0.0   # Gemini via LangChain
+langchain-core>=0.3.0
+
+# ── Config / environment ───────────────────────────────────────────────────────
+python-dotenv>=1.0.0            # Load GOOGLE_API_KEY from .env
+pydantic>=2.0.0                 # Data validation (bundled with FastAPI)
