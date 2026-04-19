@@ -3,21 +3,27 @@ Service: embeddings.py
 Builds a FAISS vector store from text chunks using sentence-transformers embeddings.
 """
 
-from typing import List
-from sentence_transformers import SentenceTransformer
+from typing import TYPE_CHECKING, List
 import faiss
 import numpy as np
+
+if TYPE_CHECKING:
+    from sentence_transformers import SentenceTransformer
 
 # Load the embedding model once at module level (cached in memory)
 # Using a lightweight but capable model for semantic search
 _MODEL_NAME = "all-MiniLM-L6-v2"
-_embedder: SentenceTransformer | None = None
+_embedder = None
 
 
-def _get_embedder() -> SentenceTransformer:
+def _get_embedder():
     """Lazy-load the embedding model (singleton pattern)."""
     global _embedder
     if _embedder is None:
+        # Import here so heavy torch/sentence-transformers modules are not loaded
+        # during FastAPI app startup (important for low-memory deployments).
+        from sentence_transformers import SentenceTransformer
+
         _embedder = SentenceTransformer(_MODEL_NAME)
     return _embedder
 
