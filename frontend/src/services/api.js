@@ -27,6 +27,11 @@ async function handleResponse(res) {
   return res.json();
 }
 
+export async function getData() {
+  const res = await fetch(`${BASE_URL}/your-endpoint`);
+  return handleResponse(res);
+}
+
 // ── Upload ────────────────────────────────────────────────────────────────────
 
 /**
