@@ -1,9 +1,9 @@
 /**
  * API Service — real fetch calls to the FastAPI backend.
- * Base URL is read from VITE_API_URL (see .env) or defaults to localhost:8000.
+ * Base URL is read from VITE_API_URL (see .env / hosting provider env vars).
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
