@@ -4,6 +4,7 @@ Entry point: app/main.py
 """
 
 import os
+import re
 from pathlib import Path
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,18 +31,22 @@ app = FastAPI(
 )
 
 # ── CORS ─────────────────────────────────────────────────────────────────────
-# Allow the React dev server (port 5173) and any production origin you deploy to.
+# Allow local dev plus the deployed Vercel frontend.
+# Keep exact origins for stricter control, and allow Vercel subdomains via regex
+# so preview deployments keep working without code changes.
 origins = [
     "http://localhost:5173",   # Vite dev server
     "http://localhost:3000",   # CRA fallback
     "http://127.0.0.1:5173",
     "https://ai-pdf-reader-three.vercel.app",
-
 ]
+
+origin_regex = r"https://.*\.vercel\.app$"
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=origin_regex,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
