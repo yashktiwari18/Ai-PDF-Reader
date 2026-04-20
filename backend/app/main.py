@@ -6,6 +6,9 @@ Entry point: app/main.py
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 # Explicitly resolve backend/.env so it loads correctly regardless of cwd
 _env_path = Path(__file__).resolve().parent.parent / ".env"
